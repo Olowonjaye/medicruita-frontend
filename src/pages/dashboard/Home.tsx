@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Home:React.FC = () => {
+const Home: React.FC = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
@@ -14,8 +14,11 @@ const Home:React.FC = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2">
                 <span className="text-white font-bold text-sm">M</span>
               </div>
-              <span className="text-xl font-semibold text-gray-900">Medicordia</span>
+              <span className="text-xl font-semibold text-gray-900">
+                Medicordia
+              </span>
             </div>
+
             {/* Hamburger for mobile */}
             <div className="md:hidden">
               <button
@@ -48,76 +51,81 @@ const Home:React.FC = () => {
                 </svg>
               </button>
             </div>
+
             {/* Desktop Nav */}
             <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              <Link to="/" className="text-gray-700 hover:text-blue-600">
                 Home
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/jobs" className="text-gray-700 hover:text-blue-600">
                 Find Jobs
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/services" className="text-gray-700 hover:text-blue-600">
                 Services
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/use-cases" className="text-gray-700 hover:text-blue-600">
                 Use Cases
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/about" className="text-gray-700 hover:text-blue-600">
                 About Us
-              </a>
+              </Link>
             </nav>
+
+            {/* Login Button */}
             <Link
-            to="/login"
-            className="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+              to="/login"
+              className="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
             >
-            Login
+              Login
             </Link>
           </div>
+
           {/* Mobile Nav */}
           {navOpen && (
             <div className="md:hidden mt-2 bg-white rounded-lg shadow-lg">
               <nav className="flex flex-col space-y-2 px-4 py-4">
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="text-gray-700 hover:text-blue-600 py-2 border-b"
                   onClick={() => setNavOpen(false)}
                 >
                   Home
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/jobs"
                   className="text-gray-700 hover:text-blue-600 py-2 border-b"
                   onClick={() => setNavOpen(false)}
                 >
                   Find Jobs
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/services"
                   className="text-gray-700 hover:text-blue-600 py-2 border-b"
                   onClick={() => setNavOpen(false)}
                 >
                   Services
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/use-cases"
                   className="text-gray-700 hover:text-blue-600 py-2 border-b"
                   onClick={() => setNavOpen(false)}
                 >
                   Use Cases
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/about"
                   className="text-gray-700 hover:text-blue-600 py-2"
                   onClick={() => setNavOpen(false)}
                 >
                   About Us
-                </a>
-                <button
-                  className="w-full mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                </Link>
+                <Link
+                  to="/register"
+                  className="w-full mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 text-center"
                   onClick={() => setNavOpen(false)}
                 >
                   Sign up
-                </button>
+                </Link>
               </nav>
             </div>
           )}
@@ -135,12 +143,12 @@ const Home:React.FC = () => {
                 AI-powered recruitment, CPD tracking, and workforce deployment - all in one low-bandwidth platform
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 font-semibold">
+                <Link to="/register" className="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 font-semibold">
                   Get Started
-                </button>
-                <button className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 font-semibold">
+                </Link>
+                <Link to="/dashboard" className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 font-semibold">
                   Find Jobs
-                </button>
+                </Link>
               </div>
             </div>
             <div className="relative">
@@ -227,37 +235,57 @@ const Home:React.FC = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">How It Works</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                <div className="w-8 h-8 bg-purple-600 rounded-lg"></div>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Sign Up</h3>
+     
+
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
+          How It Works
+        </h2>
+        <div className="grid md:grid-cols-4 gap-8">
+          <Link to="/register" className="block">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-purple-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <div className="w-8 h-8 bg-purple-600 rounded-lg"></div>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-cyan-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                <div className="w-8 h-8 bg-cyan-600 rounded-full"></div>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Create Profile</h3>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-pink-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                <div className="w-8 h-8 bg-pink-600 rounded-lg"></div>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Apply for Jobs</h3>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                <div className="w-8 h-8 bg-orange-600 rounded-lg"></div>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Access CPDs</h3>
-            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              <Link to="/register">Sign Up</Link>
+            </h3>
           </div>
+          </Link>
+          <Link to="/login" className="block">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-cyan-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <div className="w-8 h-8 bg-cyan-600 rounded-full"></div>
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              <Link to="/login">Create Profile</Link>
+            </h3>
+          </div>
+          </Link>
+          <Link to="/jobs" className="block">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-pink-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <div className="w-8 h-8 bg-pink-600 rounded-lg"></div>
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              <Link to="/jobs">Apply for Jobs</Link>
+            </h3>
+          </div>
+          </Link>
+          <Link to="/cpds" className="block">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <div className="w-8 h-8 bg-orange-600 rounded-lg"></div>
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              <Link to="/cpds">Access CPDs</Link>
+            </h3>
+          </div>
+          </Link>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Our Services */}
       <section className="py-20">
@@ -333,12 +361,16 @@ const Home:React.FC = () => {
             <div>
               <h2 className="text-4xl font-bold mb-6">Ready to revolutionize healthcare workforce management?</h2>
               <div className="flex flex-col sm:flex-row gap-4">
+               <Link to="/register" className="block">
                 <button className="bg-white text-purple-600 px-8 py-3 rounded-lg hover:bg-gray-100 font-semibold">
                   Create Account
                 </button>
+                </Link>
+                <Link to="/jobs" className="block">
                 <button className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-purple-600 font-semibold">
                   Find Jobs
                 </button>
+                </Link>
               </div>
             </div>
             <div className="relative">
