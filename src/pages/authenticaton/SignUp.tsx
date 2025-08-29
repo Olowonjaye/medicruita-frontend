@@ -72,7 +72,7 @@ const navigate = useNavigate();
   console.log("Submitting:", formData);
 
   try {
-    const response = await fetch("https://wallmap.onrender.com/api/users/register", {
+    const response = await fetch("https://medicruita-backend.onrender.com/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
