@@ -1,75 +1,59 @@
-// pages/chat/Chatollama.tsx
-import React, { useState } from 'react';
-import HelpInput from '../../components/ChatIlama/HelpInput';
-import axios from 'axios';
+// src/pages/dashboard/ChatIlama.tsx
+import React, { useState } from "react";
+import HelpInput from '../../components/ChatIlama/HelpInput'; // adjust path if needed
 
-interface Message {
-  sender: 'user' | 'ai';
-  text: string;
-  timestamp: string;
-}
+const ChatIlama: React.FC = () => {
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
+    []
+  );
 
-const Chatollama: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  const handleSendMessage = async (userMessage: string) => {
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-    // Add user message
-    setMessages(prev => [...prev, { sender: 'user', text: userMessage, timestamp }]);
+  // 🔗 Backend call
+  const onSendMessage = async (userMessage: string) => {
+    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
 
     try {
-      const res = await axios.post("https://wallmap.onrender.com/api/chat/medical", {
-        userQuestion: userMessage,
+      const res = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
       });
 
-      const reply = res.data.reply;
-
-      // Add AI reply
-      setMessages(prev => [...prev, { sender: 'ai', text: reply, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-    } catch (err) {
-      console.error(err);
+      const data = await res.json();
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: data.reply || "No response" },
+      ]);
+    } catch (error) {
+      console.error("Chat API error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "⚠️ Error connecting to server" },
+      ]);
     }
   };
 
   return (
-    <main className="flex-1 flex flex-col bg-gray-100 h-[calc(100vh-5rem)]">
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        {messages.map((msg, index) => (
+    <div className="p-4 border rounded-lg shadow-md bg-white">
+      {/* Chat messages */}
+      <div className="space-y-2 mb-4 max-h-[300px] overflow-y-auto">
+        {messages.map((msg, idx) => (
           <div
-            key={index}
-            className={`flex gap-4 max-w-2xl ${msg.sender === 'user' ? 'ml-auto' : 'mr-auto'}`}
+            key={idx}
+            className={`p-2 rounded ${
+              msg.sender === "user"
+                ? "bg-blue-100 text-right"
+                : "bg-gray-100 text-left"
+            }`}
           >
-            {msg.sender === 'ai' && (
-              <img
-                src="/llama-icon.png"
-                alt="AI"
-                className="w-10 h-10 rounded-xl"
-              />
-            )}
-            <div className="flex-1">
-              <div className={`flex items-center ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} gap-2 mb-1`}>
-                <span className="font-semibold">{msg.sender === 'user' ? 'You' : 'Llama AI'}</span>
-                <span className="text-xs text-gray-400">{msg.timestamp}</span>
-              </div>
-              <div className={`${msg.sender === 'user' ? 'bg-primary bg-opacity-20' : 'bg-white'} rounded-xl p-4`}>
-                <p className="whitespace-pre-wrap">{msg.text}</p>
-              </div>
-            </div>
-            {msg.sender === 'user' && (
-              <img
-                src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722161/AbhirajK/Abhirajk3.webp"
-                alt="You"
-                className="w-10 h-10 rounded-xl"
-              />
-            )}
+            {msg.text}
           </div>
         ))}
       </div>
 
-      <HelpInput onSendMessage={handleSendMessage} />
-    </main>
+      {/* Unified input */}
+      <HelpInput onSendMessage={onSendMessage} />
+    </div>
   );
 };
 
-export default Chatollama;
+export default ChatIlama;

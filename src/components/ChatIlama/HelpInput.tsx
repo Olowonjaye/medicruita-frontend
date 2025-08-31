@@ -3,17 +3,18 @@ import { useState } from "react";
 import { Paperclip, Upload } from "lucide-react";
 
 interface HelpInputProps {
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string) => Promise<void>;
 }
 
 const HelpInput: React.FC<HelpInputProps> = ({ onSendMessage }) => {
   const [query, setQuery] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
-    onSendMessage(query);
-    setQuery("");
+
+    await onSendMessage(query); // call backend
+    setQuery(""); // clear input
   };
 
   return (
@@ -24,14 +25,16 @@ const HelpInput: React.FC<HelpInputProps> = ({ onSendMessage }) => {
       >
         <input
           type="text"
-          placeholder="Message llama"
+          placeholder="Ask ChatLlama a medical question..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="flex-1 bg-transparent focus:outline-none text-gray-800 placeholder-gray-400"
         />
+
         <button type="button">
           <Paperclip className="w-5 h-5 text-gray-500" />
         </button>
+
         <button
           type="submit"
           className="bg-pink-600 hover:bg-pink-700 text-white p-2 rounded-xl transition"
