@@ -19,7 +19,7 @@ const ChatIlama: React.FC = () => {
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: data.reply || "No response" },
+        { sender: "bot", text: data.reply || "No response, kindly consult your medical practitioner or check back later" },
       ]);
     } catch (error) {
       console.error("Chat API error:", error);
