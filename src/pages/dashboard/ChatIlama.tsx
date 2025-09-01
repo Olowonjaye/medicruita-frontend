@@ -3,19 +3,17 @@ import React, { useState } from "react";
 import HelpInput from '../../components/ChatIlama/HelpInput'; // adjust path if needed
 
 const ChatIlama: React.FC = () => {
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
 
   // 🔗 Backend call
   const onSendMessage = async (userMessage: string) => {
     setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("https://medicruita-backend.onrender.com/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ userQuestion: userMessage }), // ✅ aligned with backend
       });
 
       const data = await res.json();
