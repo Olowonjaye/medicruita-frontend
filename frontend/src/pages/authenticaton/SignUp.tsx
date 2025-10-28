@@ -12,7 +12,6 @@ interface FormData {
   fullName: string;
   email: string;
   password: string;
-  role: string;
   cader: string;
   licenseNum: string;
   organization?: string;
@@ -38,7 +37,6 @@ const navigate = useNavigate();
     fullName: "",
     email: "",
     password: "",
-    role: "healthworker",
     cader: "",
     licenseNum: "",
     organization: "",
@@ -69,7 +67,11 @@ const navigate = useNavigate();
     if (!formData.password.trim()) newErrors.password = "Password is required.";
     if (role === "Health Worker") {
       if (!formData.cader.trim()) newErrors.cader = "Cadre is required.";
-      if (!formData.licenseNum.trim()) newErrors.licenseNum = "License number is required.";
+      if (!formData.licenseNum.trim()) {
+        newErrors.licenseNum = "License number is required.";
+      } else if (!/^[0-9]+$/.test(formData.licenseNum.trim())) {
+        newErrors.licenseNum = "License number must be numeric.";
+      }
     } else {
       if (!formData.organization?.trim()) newErrors.organization = "Organization is required.";
       if (!formData.designation?.trim()) newErrors.designation = "Designation is required.";
@@ -97,12 +99,13 @@ const navigate = useNavigate();
     };
     if (role === "Health Worker") {
       payload.cader = formData.cader;
-      payload.licenseNum = parseInt(formData.licenseNum);
+      // licenseNum already validated to be numeric in validate()
+      payload.licenseNum = Number(formData.licenseNum.trim());
     } else {
       payload.organization = formData.organization;
       payload.designation = formData.designation;
     }
-    const { data } = await apiRequest.post("/users/register", payload);
+  const { data } = await apiRequest.post("/register", payload);
     console.log("Registration successful:", data);
 
     // ✅ Show success toast
@@ -113,8 +116,9 @@ const navigate = useNavigate();
       navigate("/login");
     }, 1500);
   } catch (error: any) {
-    console.error("Registration error:", error.message);
-    toast.error(error.message || "Something went wrong!");
+    console.error("Registration error:", error);
+    const serverMessage = error?.response?.data?.message || error?.response?.data?.error;
+    toast.error(serverMessage || error.message || "Something went wrong!");
   }
 };
 
@@ -139,7 +143,6 @@ const navigate = useNavigate();
                 setRole("Employer");
                 setFormData((prev) => ({
                   ...prev,
-                  role: "employee",
                   cader: "",
                   licenseNum: "",
                 }));
@@ -156,7 +159,6 @@ const navigate = useNavigate();
                 setRole("Health Worker");
                 setFormData((prev) => ({
                   ...prev,
-                  role: "healthworker",
                   organization: "",
                   designation: "",
                 }));

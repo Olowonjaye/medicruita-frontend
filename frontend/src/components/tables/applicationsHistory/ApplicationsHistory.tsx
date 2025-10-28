@@ -86,9 +86,9 @@ const ApplicationsHistory: React.FC = () => {
         ))}
       </div>
       <div className="mt-4 pb-6 text-sm text-center">
-        <a href="#" className="text-indigo-600 hover:underline font-medium">
+        <button type="button" className="text-indigo-600 hover:underline font-medium bg-transparent border-0 cursor-pointer">
           View all applications history →
-        </a>
+        </button>
       </div>
     </div>
   );

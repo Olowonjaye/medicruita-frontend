@@ -1,7 +1,19 @@
 import axios from "axios";
 
-// Use Vite env variable if provided, otherwise fall back to the deployed URL.
-const BASE = (import.meta as any).env?.VITE_API_BASE_URL || "https://medicruita-backend.onrender.com";
+// Use Vite env variable if provided. Support both VITE_API_URL (preferred) and
+// VITE_API_BASE_URL (fallback for older setups). If none provided, fall back
+// to the deployed Render URL.
+const metaEnv = (import.meta as any).env || {};
+// prefer VITE_API_URL, fall back to VITE_API_BASE_URL, otherwise use deployed URL
+let BASE: string = metaEnv.VITE_API_URL || metaEnv.VITE_API_BASE_URL || "https://medicruita-backend.onrender.com";
+// remove trailing slash if present to avoid double slashes when building baseURL
+if (BASE.endsWith('/')) BASE = BASE.slice(0, -1);
+
+// Helpful debug during local development
+if (metaEnv.MODE === 'development') {
+  // eslint-disable-next-line no-console
+  console.info(`[apiRequest] using API base: ${BASE}`);
+}
 
 const apiRequest = axios.create({
   baseURL: `${BASE}/api`,

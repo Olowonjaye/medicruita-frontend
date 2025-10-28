@@ -242,48 +242,48 @@ const Home: React.FC = () => {
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
           How It Works
         </h2>
-        <div className="grid md:grid-cols-4 gap-8">
-          <Link to="/register" className="block">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-purple-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <div className="w-8 h-8 bg-purple-600 rounded-lg"></div>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">
-              <Link to="/register">Sign Up</Link>
-            </h3>
+          <div className="grid md:grid-cols-4 gap-8">
+            <Link to="/register" className="block">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-purple-600 rounded-lg"></div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">
+                  <span>Sign Up</span>
+                </h3>
+              </div>
+            </Link>
+            <Link to="/login" className="block">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-cyan-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-cyan-600 rounded-full"></div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">
+                  <span>Create Profile</span>
+                </h3>
+              </div>
+            </Link>
+            <Link to="/jobs" className="block">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-pink-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-pink-600 rounded-lg"></div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">
+                  <span>Apply for Jobs</span>
+                </h3>
+              </div>
+            </Link>
+            <Link to="/cpds" className="block">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-orange-600 rounded-lg"></div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">
+                  <span>Access CPDs</span>
+                </h3>
+              </div>
+            </Link>
           </div>
-          </Link>
-          <Link to="/login" className="block">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-cyan-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <div className="w-8 h-8 bg-cyan-600 rounded-full"></div>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">
-              <Link to="/login">Create Profile</Link>
-            </h3>
-          </div>
-          </Link>
-          <Link to="/jobs" className="block">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-pink-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <div className="w-8 h-8 bg-pink-600 rounded-lg"></div>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">
-              <Link to="/jobs">Apply for Jobs</Link>
-            </h3>
-          </div>
-          </Link>
-          <Link to="/cpds" className="block">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <div className="w-8 h-8 bg-orange-600 rounded-lg"></div>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">
-              <Link to="/cpds">Access CPDs</Link>
-            </h3>
-          </div>
-          </Link>
-        </div>
       </div>
     </section>
 
@@ -407,24 +407,24 @@ const Home: React.FC = () => {
               <h4 className="font-semibold mb-4">About</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Company
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Team
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Careers
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Contact
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -432,24 +432,24 @@ const Home: React.FC = () => {
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Help Center
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Guidelines
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <button type="button" className="hover:text-white bg-transparent border-0 p-0">
                     Terms of Service
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>

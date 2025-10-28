@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "../../validations/authValidations/AuthValidation";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 
 
@@ -25,7 +25,7 @@ const SignIn = () => {
     onSubmit: async (values) => {
       setIsLoading(true);
       try {
-        const { data: response } = await apiRequest.post("/users/login", values);
+  const { data: response } = await apiRequest.post("/login", values);
 
         // ✅ Store token
         const { token } = response;
@@ -129,9 +129,10 @@ const SignIn = () => {
           <p className="text-sm text-center text-gray-800 opacity-50">
           Don't have an account?{" "}
 
-          <a href="/register" className="text-[#2C73EB] hover:underline">
+          {/* Use React Router Link for client-side navigation */}
+          <Link to="/register" className="text-[#2C73EB] hover:underline">
             Sign up here
-          </a>
+          </Link>
           </p>
           </div>
         </div>

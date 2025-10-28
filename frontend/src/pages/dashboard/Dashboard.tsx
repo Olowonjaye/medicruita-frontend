@@ -74,10 +74,7 @@ const Dashboard: React.FC = () => {
 
       {/* Footer link */}
       <div className="mt-5 text-sm">
-        <a
-          href="#"
-          className="text-indigo-600 font-medium hover:underline flex items-center space-x-1"
-        >
+        <button type="button" className="text-indigo-600 font-medium hover:underline flex items-center space-x-1 bg-transparent border-0 p-0">
           <span>View All Applications</span>
           <svg
             className="w-4 h-4"
@@ -88,7 +85,7 @@ const Dashboard: React.FC = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-        </a>
+        </button>
       </div>
     </div>
       <ProfileViewsCard totalViews={100} employerViews={50} otherViews={50} />
