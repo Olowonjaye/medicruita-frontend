@@ -5,7 +5,7 @@ const OnboardingIntro = () => {
     >
       {/* Top - Logo */}
       <div className="flex items-center h-[10%]">
-        <img src="logo.png" alt="Logo" className="w-[200px]" />
+        <img src="/logo.png" alt="Logo" className="w-[200px]" />
       </div>
       <div className="flex justify-center items-center w-full h-[90%]">
         <img

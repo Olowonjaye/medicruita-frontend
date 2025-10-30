@@ -1,10 +1,13 @@
 // frontend/src/components/HelpInput.tsx
 import React, { useState } from "react";
-import apiRequest from "../../lib/apiRequest";
+// Note: HelpInput should NOT call the backend directly to avoid duplicate requests.
+// The parent `ChatIlama` page handles sending the request. HelpInput only
+// collects user input and invokes the onSendMessage callback with the text.
 
 interface HelpInputProps {
   sessionId: string;
-  onSendMessage: (reply: string, history: any[]) => void; // ✅ renamed
+  // parent handles sending the message to the backend and updating history
+  onSendMessage: (message: string) => Promise<void> | void;
 }
 
 const HelpInput: React.FC<HelpInputProps> = ({ sessionId, onSendMessage }) => {
@@ -15,19 +18,16 @@ const HelpInput: React.FC<HelpInputProps> = ({ sessionId, onSendMessage }) => {
   const sendMessage = async () => {
     if (!message.trim()) return;
 
+    // Delegate sending to parent. Parent is responsible for making the HTTP call.
     setLoading(true);
     setError(null);
-
     try {
-      const { data } = await apiRequest.post("/chat", {
-        sessionId,
-        userQuestion: message,
-      });
-
-      onSendMessage(data.reply, data.history); // ✅ using correct callback
+      console.log('[HelpInput] delegating message to parent onSendMessage', { sessionId, messageSnippet: message.slice(0,200) });
+      await onSendMessage(message);
       setMessage("");
     } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+      console.error('[HelpInput] onSendMessage error', err);
+      setError(err?.message || 'Something went wrong.');
     } finally {
       setLoading(false);
     }

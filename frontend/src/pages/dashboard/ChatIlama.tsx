@@ -8,15 +8,24 @@ const ChatIlama: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [sessionId] = useState(generateSessionId()); // ✅ unique session
 
-  // 🔗 Backend call
+  // 🔗 Backend call — parent handles the HTTP request. Use /chatllama endpoint which the backend exposes.
   const onSendMessage = async (userMessage: string) => {
+    // add user message to UI immediately
     setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
 
     try {
-      const { data } = await apiRequest.post("/chat", {
-        sessionId,
-        userQuestion: userMessage,
-      });
+      // Add a request id header to correlate frontend/backend logs
+      const requestId = `${sessionId}-${Date.now()}`;
+      console.log('[ChatIlama] POST /api/chatllama', { sessionId, requestId, userSnippet: userMessage.slice(0,200) });
+
+      const { data } = await apiRequest.post(
+        "/chatllama",
+        { sessionId, userQuestion: userMessage },
+        { headers: { "x-request-id": requestId } }
+      );
+
+      console.log('[ChatIlama] received response from /chatllama', { requestId, status: data?.status ?? 'unknown', replyLength: data?.reply?.length ?? 0 });
+
       setMessages((prev) => [
         ...prev,
         {
@@ -26,12 +35,23 @@ const ChatIlama: React.FC = () => {
             "No response, kindly consult your medical practitioner or check back later",
         },
       ]);
-    } catch (error) {
-      console.error("Chat API error:", error);
+    } catch (error: any) {
+      // Improved error logging to expose HTTP status and body for debugging 404s
+      if (error?.response) {
+        console.error('[ChatIlama] Chat API error response', {
+          status: error.response.status,
+          data: error.response.data,
+        });
+      } else {
+        console.error('[ChatIlama] Chat API network/error', error);
+      }
+
       setMessages((prev) => [
         ...prev,
         { sender: "bot", text: "⚠️ Error connecting to server" },
       ]);
+      // rethrow so HelpInput/displaying UI can act on it if needed
+      throw error;
     }
   };
 

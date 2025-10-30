@@ -82,8 +82,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       <div className="flex items-center justify-center gap-2 px-2 lg:py-4">
         <NavLink to="/" className="w-[250px] h-[50px]">
           <img
-            src="logo.png"
-            alt=""
+            src="/logo.png"
+            alt="Medicruita logo"
             className="h-full w-full object-contain"
           />
         </NavLink>
@@ -141,8 +141,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               }`}>
               </div>
               <NavLink
-                to="/savings&investment"
-                className={`group relative flex items-center ${pathname === "/savings&investment" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
+                to="/jobs"
+                className={`group relative flex items-center ${pathname === "/jobs" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
                   <RiSearchLine className="text-2xl"/>
                   Find Jobs
                 </NavLink>
@@ -158,8 +158,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               }`}>
               </div>
               <NavLink
-                to="/transactions"
-                className={`group relative flex items-center ${pathname === "/transactions" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
+                to="/cpds"
+                className={`group relative flex items-center ${pathname === "/cpds" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
                 <SlScreenDesktop className="text-2xl"/>
                   CPD Courses
                 </NavLink>
@@ -173,8 +173,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               }`}>
               </div>
               <NavLink
-                to="/insurance"
-                className={`group relative flex items-center ${pathname === "/insurance" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
+                to="/profile"
+                className={`group relative flex items-center ${pathname === "/profile" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
                 <CiUser className="text-2xl"/>
                   My Profile
                 </NavLink>
@@ -192,8 +192,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               }`}>
               </div>
               <NavLink
-                to="/explore"
-                className={`group relative flex items-center ${pathname === "/explore" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
+                to="/settings"
+                className={`group relative flex items-center ${pathname === "/settings" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
                   <FiSettings  className="text-xl"/>
                   Settings
                 </NavLink>
@@ -207,8 +207,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               }`}>
               </div>
               <NavLink
-                to="/logs"
-                className={`group relative flex items-center ${pathname === "/logs" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
+                to="/help"
+                className={`group relative flex items-center ${pathname === "/help" ? "bg-[#CACEF3] text-[#4640DE]" : "text-[#7C8493]"} gap-2.5 py-2 px-4 font-medium font-inter text-base duration-300 ease-in-out w-full`}>
                 <BiHelpCircle className="text-2xl"/>
                   Help Center
                 </NavLink>
@@ -216,7 +216,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               <div className="flex flex-col pt-16 bottom-0 gap-6 ">
                 
-              <li className={`flex flex-row gap-3 text-center items-center bg-white text-[#FF6550] shaddow-md rounded-md m-2`}>
+              <li className={`flex flex-row gap-3 text-center items-center bg-white text-[#FF6550] shadow-md rounded-md m-2`}>
               <button
                 onClick={handleLogout}
                 className={`group relative flex items-center font-semibold justify-center gap-2.5 py-8 px-4 font-inter duration-300 ease-in-out w-full`}>
