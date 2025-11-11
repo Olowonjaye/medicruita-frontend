@@ -105,7 +105,8 @@ const navigate = useNavigate();
       payload.organization = formData.organization;
       payload.designation = formData.designation;
     }
-  const { data } = await apiRequest.post("/register", payload);
+  // backend user routes are mounted under /api/user
+  const { data } = await apiRequest.post("/user/register", payload);
     console.log("Registration successful:", data);
 
     // ✅ Show success toast

@@ -4,13 +4,16 @@ import ProfileCompletenessCard from "../../components/tables/applicationsHistory
 import InterviewedCard from "../../components/tables/applicationsHistory/InterviewedCard";
 import ProfileViewsCard from "../../components/tables/applicationsHistory/ProfileViewsCard";
 import { FileText } from 'lucide-react';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const Dashboard: React.FC = () => {
+  const fullName = useAppSelector((s: any) => s.auth?.fullName || s.auth?.email || '');
+
   return (
     <div className="flex flex-col bg-[#FAFAFB] pt-5 px-4 sm:px-6">
       {/* Greeting Section */}
       <div className="flex flex-col gap-2 text-sm sm:text-base">
-        <span className="font-inter font-semibold text-[#25324B] text-2xl">Good morning, Adewale</span>
+        <span className="font-inter font-semibold text-[#25324B] text-2xl">Good morning, {fullName}</span>
         <span className="font-inter text-[#7C8493] hidden sm:inline">Here is what’s happening with your job search applications </span>
       </div>
 

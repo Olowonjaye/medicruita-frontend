@@ -7,6 +7,9 @@ import apiRequest from "../../lib/apiRequest";
 const ChatIlama: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [sessionId] = useState(generateSessionId()); // ✅ unique session
+  // Use mediAI proxy if VITE_USE_MEDI_AI is set to 'true' in the frontend env
+  const metaEnv = (import.meta as any).env || {};
+  const useMediAI = String(metaEnv.VITE_USE_MEDI_AI || '').toLowerCase() === 'true';
 
   // 🔗 Backend call — parent handles the HTTP request. Use /chatllama endpoint which the backend exposes.
   const onSendMessage = async (userMessage: string) => {
@@ -16,15 +19,17 @@ const ChatIlama: React.FC = () => {
     try {
       // Add a request id header to correlate frontend/backend logs
       const requestId = `${sessionId}-${Date.now()}`;
-      console.log('[ChatIlama] POST /api/chatllama', { sessionId, requestId, userSnippet: userMessage.slice(0,200) });
 
-      const { data } = await apiRequest.post(
-        "/chatllama",
-        { sessionId, userQuestion: userMessage },
-        { headers: { "x-request-id": requestId } }
-      );
+      const endpoint = useMediAI ? '/mediAI' : '/chatllama';
+      const outgoingBody = useMediAI
+        ? { messages: [{ role: 'user', content: userMessage }], sessionId }
+        : { sessionId, userQuestion: userMessage };
 
-      console.log('[ChatIlama] received response from /chatllama', { requestId, status: data?.status ?? 'unknown', replyLength: data?.reply?.length ?? 0 });
+      console.log('[ChatIlama] POST', { endpoint, sessionId, requestId, userSnippet: userMessage.slice(0,200), useMediAI });
+
+      const { data } = await apiRequest.post(endpoint, outgoingBody, { headers: { 'x-request-id': requestId } });
+
+      console.log('[ChatIlama] received response from', endpoint, { requestId, status: data?.status ?? 'unknown', replyLength: (data?.reply && String(data.reply).length) || 0 });
 
       setMessages((prev) => [
         ...prev,

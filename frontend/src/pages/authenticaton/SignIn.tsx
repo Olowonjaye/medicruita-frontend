@@ -5,6 +5,8 @@ import { loginValidationSchema } from "../../validations/authValidations/AuthVal
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { useNavigate, Link } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
+import { useDispatch } from 'react-redux';
+import { setAuthData } from '../../store/slices/auth';
 
 
 const SignIn = () => {
@@ -12,6 +14,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
@@ -25,16 +28,34 @@ const SignIn = () => {
     onSubmit: async (values) => {
       setIsLoading(true);
       try {
-  const { data: response } = await apiRequest.post("/login", values);
+  // NOTE: backend mounts auth routes under /api/user
+  const { data: response } = await apiRequest.post("/user/login", values);
 
-        // ✅ Store token
+        // ✅ Store token locally so the apiRequest interceptor can attach it
         const { token } = response;
         localStorage.setItem("token", token);
+
+        // Fetch user details and store in redux
+        try {
+          const { data: user } = await apiRequest.get('/user/me');
+          dispatch(
+            setAuthData({
+              token,
+              email: user.email || null,
+              role: user.role || null,
+              profilePicture: user.profilePicture || null,
+              fullName: user.fullName || user.full_name || null,
+            })
+          );
+        } catch (err) {
+          // If fetching user fails, continue but log it
+          console.warn('Failed to fetch user profile after login', err);
+        }
 
         // ✅ Redirect
         navigate("/dashboard");
 
-        console.log("Login success:", response.data);
+        console.log("Login success:", response);
       } catch (error: any) {
         console.error("Login error:", error.response?.data || error.message);
       } finally {

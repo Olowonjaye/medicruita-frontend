@@ -5,6 +5,7 @@ interface AuthState {
   token: string | null;
   role: string | null;
   profilePicture: string | null;
+  fullName: string | null;
   loading: boolean;
   error: boolean;
 }
@@ -14,6 +15,7 @@ const initialState: AuthState = {
   token: null,
   role: null,
   profilePicture: null,
+  fullName: null,
   loading: false,
   error: false,
 };
@@ -27,6 +29,7 @@ export const authSlice = createSlice({
       state.email = payload.email;
       state.role = payload.role;
       state.profilePicture = payload.profilePicture;
+      state.fullName = payload.fullName || payload.full_name || null;
     },
     logOut: (state) => {
       state.token = null;
